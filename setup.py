@@ -8,11 +8,11 @@ def readme():
 
 setup(
     name='Primavera_REST_Api',
-    version='0.0.2',
+    version='0.0.1',
+    url='https://github.com/EnverMT/Primavera_REST_API',
     long_description=readme(),
     long_description_content_type='text/markdown',
     packages=['Primavera_REST_Api'],
-    url='',
     license='MIT',
     author='EnverMT',
     author_email='anvarmtg@gmail.com',
