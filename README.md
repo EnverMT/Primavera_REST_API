@@ -8,24 +8,24 @@ Primavera allows to use REST API.
 - [x] Read objects
 - [x] Create objects
 - [x] Update objects
-- [ ] Delete object
+- [x] Delete object
 
 #### Import/Export
 - [x] Activities
-- [ ] Activity Codes
-- [ ] Activity Code Assignments
-- [ ] Resources
+- [x] Activity Codes
+- [x] Activity Code Assignments
+- [x] Resources
 - [x] Resource Assignments
-- [ ] WBS
+- [x] WBS
 - [ ] Relationships
 - [ ] Risks
-- [ ] Role
+- [x] Role
 
 ---
 
 ### System requirements:
 - Primavera EPPM v22
-- P6WebServices
+- Access to P6WebServices
 
 ---
 
@@ -34,31 +34,51 @@ RestAPI documentation: [REST API Documentation](https://docs.oracle.com/cd/F3712
 ---
 
 ### How to use:
-1. [Instal python](https://www.python.org/downloads/)
-2. Clone this repository 
-```
-git clone https://github.com/EnverMT/PrimaveraREST_API.git
-```
-3. Enter to directory 
-```
-cd PrimaveraREST_API
-```
-4. Create python virtual enviroment
+1. Create Python virtual enviroment
 ```
 python -m venv venv
 ```
-5. Install required packages from list
+2. Install the package 
 ```
-pip install -r requirements.txt
+pip install Primavera-REST-Api
 ```
-6. Rename **.env.example** to **.env**
-7. Edit **.env** and update *login* and *password*. 
-8. Give access to module **Web Services** in Primavera
-9. Give **Project Access** to appropriate OBS
-10. Update variables in **main.py**
+3. Example code
 ```
-EPPM_DATABASE = <Your database name>
-EPPM_PREFIX = <Primavera REST API base endpoint>
-PROJECT_SHORT_CODE = <Primavera Project's ID>
-EXPORT_TABLES_TO_CSV = <True/False>
+from Primavera_REST_Api import Primavera
+
+EPPM_LOGIN = "testuser"
+EPPM_PASSWORD = "testuser1903"
+EPPM_DATABASE = "EPPM"
+EPPM_PREFIX = "http://10.1.10.203:8206/p6ws/restapi"
+
+
+PROJECT_SHORT_CODE = "testproj"
+EXPORT_TABLES_TO_CSV = True  # Export Tables to CSV file
+
+
+app = Primavera(rest_api_prefix=EPPM_PREFIX,
+                database_name=EPPM_DATABASE,
+                login=EPPM_LOGIN,
+                password=EPPM_PASSWORD)
+
+
+app.select_project(projectId=PROJECT_SHORT_CODE)
+
+if EXPORT_TABLES_TO_CSV:
+    # Export tables to CSV files
+    directory = 'csv'
+
+    app.project.export_to_CSV(directory=directory, fields=['Id', 'Name'])
+    app.wbs.export_to_CSV(fields=['ParentObjectId', 'ObjectId', 'Name', 'Code'], directory=directory)
+    app.activity.export_to_CSV(fields=['ObjectId', 'Id', 'Name', 'PlannedDuration',
+                                       'StartDate', 'FinishDate', 'ActualDuration'], directory=directory)
+    app.resource.export_to_CSV(fields=['ObjectId', 'Id', 'Name'], directory=directory)
+    app.resourceAssignment.export_to_CSV(
+        fields=['ActivityObjectId', 'ResourceObjectId', 'PlannedUnits', 'ActivityId', 'ResourceId'], directory=directory)
+    app.resourceRole.export_to_CSV(directory=directory)
+    app.role.export_to_CSV(directory=directory)
+
+# app.activity.import_CSV_to_EPPM(directory='csv', filename='import - activity.csv', delimiter=',')
+
+
 ```
