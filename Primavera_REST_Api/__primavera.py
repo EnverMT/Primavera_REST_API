@@ -1,7 +1,6 @@
 from Primavera_REST_Api.__eppmSession import EppmSession
 from Primavera_REST_Api.__method import Method
 from Primavera_REST_Api.__endpointsEnum import EndpointEnum
-from Primavera_REST_Api.__primaryFields import primaryFields, requiredFields
 
 
 class Primavera:
@@ -45,16 +44,3 @@ class Primavera:
             project['ObjectId'] for project in self.__projectList if project['Id'] == projectId
         ][0]
         return self.eppmSession.selectedProjectObjectId
-
-    def export_to_CSV(self, directory: str = "csv"):
-        # Export tables to CSV files
-        # self.project.export_to_CSV(fields=['Id', 'Name', 'ObjectId'], directory=directory)
-        self.project.export_to_CSV(directory=directory, fields=['Id', 'Name'])
-        self.wbs.export_to_CSV(fields=['ParentObjectId', 'ObjectId', 'Name', 'Code'], directory=directory)
-        self.activity.export_to_CSV(fields=['ObjectId', 'Id', 'Name', 'PlannedDuration',
-                                            'StartDate', 'FinishDate', 'ActualDuration'], directory=directory)
-        self.resource.export_to_CSV(fields=['ObjectId', 'Id', 'Name'], directory=directory)
-        self.resourceAssignment.export_to_CSV(
-            fields=['ActivityObjectId', 'ResourceObjectId', 'PlannedUnits', 'ActivityId', 'ResourceId'], directory=directory)
-        self.resourceRole.export_to_CSV(directory=directory)
-        self.role.export_to_CSV(directory=directory)

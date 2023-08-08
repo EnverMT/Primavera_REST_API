@@ -24,6 +24,17 @@ app = Primavera(rest_api_prefix=EPPM_PREFIX,
 app.select_project(projectId=PROJECT_SHORT_CODE)
 
 if EXPORT_TABLES_TO_CSV:
-    app.export_to_CSV()
+    # Export tables to CSV files
+    directory = 'csv'
+
+    app.project.export_to_CSV(directory=directory, fields=['Id', 'Name'])
+    app.wbs.export_to_CSV(fields=['ParentObjectId', 'ObjectId', 'Name', 'Code'], directory=directory)
+    app.activity.export_to_CSV(fields=['ObjectId', 'Id', 'Name', 'PlannedDuration',
+                                       'StartDate', 'FinishDate', 'ActualDuration'], directory=directory)
+    app.resource.export_to_CSV(fields=['ObjectId', 'Id', 'Name'], directory=directory)
+    app.resourceAssignment.export_to_CSV(
+        fields=['ActivityObjectId', 'ResourceObjectId', 'PlannedUnits', 'ActivityId', 'ResourceId'], directory=directory)
+    app.resourceRole.export_to_CSV(directory=directory)
+    app.role.export_to_CSV(directory=directory)
 
 app.activity.import_CSV_to_EPPM(directory='csv', filename='import - activity.csv', delimiter=',')
