@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='Primavera_REST_Api',
-    version='0.0.1',
+    version='0.1.0',
     url='https://github.com/EnverMT/Primavera_REST_API',
     long_description=readme(),
     long_description_content_type='text/markdown',
