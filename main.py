@@ -37,4 +37,4 @@ if EXPORT_TABLES_TO_CSV:
     app.resourceRole.export_to_CSV(directory=directory)
     app.role.export_to_CSV(directory=directory)
 
-app.activity.import_CSV_to_EPPM(directory='csv', filename='import - activity.csv', delimiter=',')
+# app.activity.import_CSV_to_EPPM(directory='csv', filename='import - activity.csv', delimiter=',')

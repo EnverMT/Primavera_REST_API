@@ -29,4 +29,6 @@ class EppmSession:
         headers = {"username": login, "password": password}
         params = {"DatabaseName": database_name}
         res = self.session.post(url, headers=headers, params=params)
+        if res.status_code != 200:
+            raise Exception(f"ERROR on LOGIN: {res.text}")
         return res.json()

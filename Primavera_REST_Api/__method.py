@@ -36,6 +36,8 @@ class Method:
             params.update({"Filter": f"ProjectObjectId :eq: {self.context.selectedProjectObjectId}"})
 
         result = self.context.session.get(url=url, params=params)
+        if result.status_code != 200:
+            raise Exception(f"ERROR on READ: {result.text}")
         return json.loads(result.text)
 
     def update(self, objectList: list[dict], chunkSize: int = 100):
