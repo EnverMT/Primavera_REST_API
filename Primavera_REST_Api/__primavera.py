@@ -8,7 +8,7 @@ class Primavera:
                  database_name: str | None,
                  login: str | None,
                  password: str | None):
-        """"
+        """
              Usual prefix is IP + p6ws + restapi as String http://10.1.10.203:8206/p6ws/restapi
         """
 
