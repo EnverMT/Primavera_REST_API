@@ -9,10 +9,11 @@ class TestActivity:
 
     def test_activity_create(self, app: Primavera):
         app.select_project(self.TEST_PROJECT_ID)
-        objectList = [{
-            'Id': "T1000",
-            'Name': "Test1000"
-        }]
+        objectList = [{'Id': "T1000", 'Name': "Test1000"},
+                      {'Id': "T1001", 'Name': "Test1001"},
+                      {'Id': "G1000", 'Name': "TestG1000"},
+                      {'Id': "B1000", 'Name': "TestB1000"},
+                      {'Id': "B1001", 'Name': "TestB1001"}]
         app.activity.create(objectList=objectList, chunkSize=10)
 
     def test_activity_update(self, app: Primavera):
@@ -28,3 +29,8 @@ class TestActivity:
         length = app.activity.getFieldLength('Id')
         print("activity: ", activity)
         print("length:", length)
+
+    def test_activity_filter(self, app: Primavera):
+        app.select_project(self.TEST_PROJECT_ID)
+        activity = app.activity.read(filters="Id :like: '%B1000%'")
+        assert activity[0].get('Name') == 'TestB1000'
