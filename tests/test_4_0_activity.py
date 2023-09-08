@@ -32,5 +32,9 @@ class TestActivity:
 
     def test_activity_filter(self, app: Primavera):
         app.select_project(self.TEST_PROJECT_ID)
+
         activity = app.activity.read(filters="Id :like: '%B1000%'")
         assert activity[0].get('Name') == 'TestB1000'
+
+        activity = app.activity.read(filters="Id :like: '%G1000%'")
+        assert activity[0].get('Name') == 'TestG1000'
