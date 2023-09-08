@@ -19,3 +19,17 @@ def app() -> Primavera:
                     password=EPPM_PASSWORD)
 
     return app
+
+
+test_project_data = {
+    'TEST_PROJECT_NAME': 'test web service',
+    'TEST_PROJECT_ID': 'testws1',
+    'TEST_ParentEPSObjectId': 3667
+}
+
+
+def get_project_ObjectId(app: Primavera, id: int) -> int | None:
+    projects = app.project.read(['Id'])
+    if id in [p['Id'] for p in projects]:
+        return [p['ObjectId'] for p in projects if p['Id'] == id][0]
+    return None

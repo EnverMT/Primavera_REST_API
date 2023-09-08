@@ -12,7 +12,7 @@ EPPM_PREFIX = os.getenv('eppm_prefix')
 
 
 PROJECT_SHORT_CODE = "testproj"
-EXPORT_TABLES_TO_CSV = True  # Export Tables to CSV file
+EXPORT_TABLES_TO_CSV = False  # Export Tables to CSV file
 
 
 app = Primavera(rest_api_prefix=EPPM_PREFIX,
@@ -21,7 +21,9 @@ app = Primavera(rest_api_prefix=EPPM_PREFIX,
                 password=EPPM_PASSWORD)
 
 
-app.select_project(projectId=PROJECT_SHORT_CODE)
+print(app.project.read(['Name', 'ParentEPSObjectId']))
+
+# app.select_project(projectId=PROJECT_SHORT_CODE)
 
 if EXPORT_TABLES_TO_CSV:
     # Export tables to CSV files
