@@ -30,7 +30,7 @@ class Primavera:
 
         self.__projectList = self.project.read(fields=['ObjectId', 'Name', 'Id'])
 
-    def select_project(self, projectId: str) -> bool:
+    def select_project(self, projectId: str) -> int:
         """
             Select project for further filtering of objects
 
