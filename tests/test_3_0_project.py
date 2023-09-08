@@ -1,5 +1,6 @@
 from Primavera_REST_Api import Primavera
 from test_0_app import app, test_project_data, get_project_ObjectId
+import pytest
 
 
 class TestProject:
@@ -17,3 +18,7 @@ class TestProject:
             "Id": self.TEST_PROJECT_ID,
             "ParentEPSObjectId": self.TEST_ParentEPSObjectId
         }])
+
+    def test_select_project_fails(self, app: Primavera):
+        with pytest.raises(Exception):
+            app.select_project('asdfasd24')

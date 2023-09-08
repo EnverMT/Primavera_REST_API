@@ -13,4 +13,18 @@ class TestActivity:
             'Id': "T1000",
             'Name': "Test1000"
         }]
-        app.activity.create(objectList=objectList)
+        app.activity.create(objectList=objectList, chunkSize=10)
+
+    def test_activity_update(self, app: Primavera):
+        app.select_project(self.TEST_PROJECT_ID)
+        activity = app.activity.read()[0]
+        objectList = [{
+            'Id': "T2000",
+            'Name': "Test2000",
+            'ObjectId': activity.get('ObjectId')
+        }]
+        app.activity.update(objectList=objectList)
+        activity = app.activity.read(['Id', 'Name'])
+        length = app.activity.getFieldLength('Id')
+        print("activity: ", activity)
+        print("length:", length)
