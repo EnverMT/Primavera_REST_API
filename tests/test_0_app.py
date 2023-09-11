@@ -33,7 +33,9 @@ def get_eps_objectId(app: Primavera, id: str | None = None) -> int | None:
 
 test_project_data = {
     'TEST_PROJECT_NAME': 'test web service',
-    'TEST_PROJECT_ID': 'testws1'
+    'TEST_PROJECT_ID': 'testws1',
+    'TEST_DIRECTORY': 'csv_test',
+    'TEST_CSV_DELIMITER': ';'
 }
 
 

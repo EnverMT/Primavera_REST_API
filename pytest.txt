@@ -1,1 +1,1 @@
-pytest -s -v --cov=Primavera_REST_Api --cov-report=html
+pytest -v --cov=Primavera_REST_Api --cov-report=html
