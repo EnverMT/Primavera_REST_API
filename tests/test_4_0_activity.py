@@ -35,6 +35,12 @@ class TestActivity:
 
         activity = app.activity.read(filters="Id :like: '%B1000%'")
         assert activity[0].get('Name') == 'TestB1000'
+        assert len(activity) == 1
 
         activity = app.activity.read(filters="Id :like: '%G1000%'")
         assert activity[0].get('Name') == 'TestG1000'
+        assert len(activity) == 1
+
+        activity = app.activity.read(filters="Id :like: '%T2000%'")
+        assert activity[0].get('Name') == 'Test2000'
+        assert len(activity) == 1
