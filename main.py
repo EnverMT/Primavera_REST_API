@@ -1,6 +1,7 @@
 from Primavera_REST_Api import Primavera
 from dotenv import load_dotenv
 import os
+import json
 
 
 load_dotenv()
@@ -21,7 +22,12 @@ app = Primavera(rest_api_prefix=EPPM_PREFIX,
                 password=EPPM_PASSWORD)
 
 
-print(app.project.read(['Name', 'ParentEPSObjectId']))
+# # print(app.project.read(['Name', 'ParentEPSObjectId']))
+# print(json.dumps(app.eps.read(), indent=2))
+
+# epss = app.eps.read(fields=['ParentObjectId'])
+# root_eps = [e for e in epss if e.get('ParentObjectId') == None]
+# print(root_eps)
 
 # app.select_project(projectId=PROJECT_SHORT_CODE)
 

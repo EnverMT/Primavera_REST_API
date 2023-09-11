@@ -21,10 +21,19 @@ def app() -> Primavera:
     return app
 
 
+def get_eps_objectId(app: Primavera, id: str | None = None) -> int | None:
+    if not id:
+        epss = app.eps.read()
+        obj: list[dict] = [e for e in epss if e.get('ParentObjectId') == None]
+    else:
+        obj: list[dict] = [e for e in epss if e.get('Id') == id]
+
+    return obj[0].get('ObjectId')
+
+
 test_project_data = {
     'TEST_PROJECT_NAME': 'test web service',
-    'TEST_PROJECT_ID': 'testws1',
-    'TEST_ParentEPSObjectId': 3667
+    'TEST_PROJECT_ID': 'testws1'
 }
 
 

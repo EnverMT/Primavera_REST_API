@@ -1,14 +1,15 @@
 from Primavera_REST_Api import Primavera
-from test_0_app import app, test_project_data, get_project_ObjectId
+from test_0_app import app, test_project_data, get_project_ObjectId, get_eps_objectId
 import pytest
 
 
 class TestProject:
     TEST_PROJECT_NAME = test_project_data.get('TEST_PROJECT_NAME')
     TEST_PROJECT_ID = test_project_data.get('TEST_PROJECT_ID')
-    TEST_ParentEPSObjectId = test_project_data.get('TEST_ParentEPSObjectId')
+    TEST_ParentEPSObjectId = None
 
     def test_project_create(self, app: Primavera):
+        self.TEST_ParentEPSObjectId = get_eps_objectId(app=app)
         existing_test_project_object_id = get_project_ObjectId(app=app, id=self.TEST_PROJECT_ID)
         if existing_test_project_object_id:
             app.project.delete(objectIdsList=[existing_test_project_object_id])
