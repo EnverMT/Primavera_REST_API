@@ -1,2 +1,5 @@
 requests
 python-dotenv
+pandas
+openpyxl
+xlsxwriter

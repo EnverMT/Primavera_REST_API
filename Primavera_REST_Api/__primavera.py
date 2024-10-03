@@ -8,7 +8,7 @@ class Primavera:
                  database_name: str | None,
                  login: str | None,
                  password: str | None):
-        """"
+        """
              Usual prefix is IP + p6ws + restapi as String http://10.1.10.203:8206/p6ws/restapi
         """
 
@@ -18,19 +18,20 @@ class Primavera:
                                        password=password)
 
         # Methods
-        self.project = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.project)
         self.activity = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.activity)
         self.activityCode = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.activityCode)
         self.activityCodeAssignment = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.activityCodeAssignment)
-        self.wbs = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.wbs)
+        self.eps = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.eps)
+        self.project = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.project)
         self.resource = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.resource)
         self.resourceRole = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.resourceRole)
         self.resourceAssignment = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.resourceAssignment)
         self.role = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.role)
+        self.wbs = Method(eppmSession=self.eppmSession, endpoint=EndpointEnum.wbs)
 
         self.__projectList = self.project.read(fields=['ObjectId', 'Name', 'Id'])
 
-    def select_project(self, projectId: str) -> bool:
+    def select_project(self, projectId: str) -> int:
         """
             Select project for further filtering of objects
 

@@ -31,13 +31,19 @@ class Method:
             fields = self.fields()
         params = {"Fields": ','.join(fields)}
 
-        # To be refactored to use filters parameter!!!
         if self.context.selectedProjectObjectId is not None and not self.__ignoreProjectId:
-            params.update({"Filter": f"ProjectObjectId :eq: {self.context.selectedProjectObjectId}"})
+            if not filters:
+                filters = f"ProjectObjectId :eq: {self.context.selectedProjectObjectId}"
+            else:
+                filters += " :and: "
+                filters += f"ProjectObjectId :eq: {self.context.selectedProjectObjectId}"
+
+        if filters:
+            params.update({"Filter": filters})
 
         result = self.context.session.get(url=url, params=params)
         if result.status_code != 200:
-            raise Exception(f"ERROR on READ: {result.text}")
+            raise Exception(f"ERROR on READ: {result.text} \nFilter:{filters}")
         return json.loads(result.text)
 
     def update(self, objectList: list[dict], chunkSize: int = 100):
