@@ -1,5 +1,6 @@
 *.xer
 *.csv
+*.xlsx
 .vscode
 csv_test
 
